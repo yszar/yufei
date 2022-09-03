@@ -68,9 +68,13 @@ async def root():
     return {"message": "Hello my API"}
 
 
-@app.get("/v1/wx/check-session/{code}")
-async def check_session(session_id):
-    pass
+@app.get("/v1/wx/session-state")
+async def check_session(request: Request):
+    res = check_session_id(request)
+    if res != 0:
+        return resp_code.resp_200(data="exist")
+    else:
+        return resp_code.resp_400(data="does not exist", message="does not exist")
 
 
 @app.post(
@@ -130,8 +134,8 @@ async def get_video_file(url: str, type_str: str):
     # body = bytes(await req.body()) or None
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 ("
-                      "KHTML, like Gecko) "
-                      "Chrome/51.0.2704.63 Safari/537.36"
+        "KHTML, like Gecko) "
+        "Chrome/51.0.2704.63 Safari/537.36"
     }
     r = requests.request(
         method="get",
@@ -151,12 +155,12 @@ async def get_video_file(url: str, type_str: str):
     # h = dict(r.headers)
     # h.pop("Content-Length", None)
     match type_str:
-        case 'video':
+        case "video":
             media_type = "video/mp4"
-            file_type = '.mp4'
-        case 'image':
-            media_type = 'image/jpeg'
-            file_type = '.jpg'
+            file_type = ".mp4"
+        case "image":
+            media_type = "image/jpeg"
+            file_type = ".jpg"
         case _:
             media_type = file_type = None
     return Response(

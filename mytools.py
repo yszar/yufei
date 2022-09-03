@@ -8,8 +8,10 @@ import os
 import re
 
 import requests
+from dotenv import load_dotenv
 from redis import StrictRedis
 
+load_dotenv(verbose=True)
 # TODO: 部署正式环境记得换.env中的内容
 REDIS_HOST = os.getenv("REDIS_HOST")
 REDIS_PORT = int(os.getenv("REDIS_PORT"))
@@ -53,10 +55,9 @@ def find_url(string: str):
 
 
 def check_session_id(request):
-    session_id = str(dict(request['headers'])[b'sessionid'])
+    session_id = str(dict(request["headers"])[b"sessionid"], encoding="utf-8")
     redis = StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=0, password=REDIS_PASS)
-
-    return session_id
+    return redis.exists(session_id)
 
 
 class Video:
@@ -193,4 +194,4 @@ class Video:
 
 
 if __name__ == "__main__":
-    pass
+    check_session_id("5a0d879a2a3b11eda50af131fcd020c7")
