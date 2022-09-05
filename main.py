@@ -113,19 +113,16 @@ async def session(item: Session):
 @app.get("/v1/wx/video-info")
 async def get_video_info(url: str, request: Request):
     # url = find_url(video_str)
-    if check_session_id(request) != 0:
-        v = Video(url)
-        match url:
-            case url if "douyin" in url:
-                v.douyin()
-            # 挨着写，还有无数个
-        if Video.status_code == 200:
-            var = Video.video_info
-            return resp_code.resp_200(data=var)
-        else:
-            return resp_code.resp_400(message="errno", data="errno")
+    v = Video(url)
+    match url:
+        case url if "douyin" in url:
+            v.douyin()
+        # 挨着写，还有无数个
+    if Video.status_code == 200:
+        var = Video.video_info
+        return resp_code.resp_200(data=var)
     else:
-        return resp_code.resp_400(data="No permission", message="No permission")
+        return resp_code.resp_400(message="errno", data="errno")
 
 
 @app.get("/v1/wx/video-image-file")
