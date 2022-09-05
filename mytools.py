@@ -55,9 +55,12 @@ def find_url(string: str):
 
 
 def check_session_id(request):
-    session_id = str(dict(request["headers"])[b"sessionid"], encoding="utf-8")
-    redis = StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=0, password=REDIS_PASS)
-    return redis.exists(session_id)
+    try:
+        session_id = str(dict(request["headers"])[b"sessionid"], encoding="utf-8")
+        redis = StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=0, password=REDIS_PASS)
+        return redis.exists(session_id)
+    except (SyntaxError, KeyError):
+        return 0
 
 
 class Video:
