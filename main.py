@@ -117,6 +117,8 @@ async def get_video_info(url: str, request: Request):
     match url:
         case url if "douyin" in url:
             v.douyin()
+        case url if "pipix" in url:
+            v.pi_pi_xia()
         # 挨着写，还有无数个
     if Video.status_code == 200:
         var = Video.video_info

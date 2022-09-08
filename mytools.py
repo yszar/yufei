@@ -117,8 +117,35 @@ class Video:
             ]["url_list"][0]
             Video.video_info["author"]["unique_id"] = item_list["author"]["unique_id"]
 
-    def pi_pi_xia(self, url):
-        pass
+    def pi_pi_xia(self):
+        res = requests.get(url=self.url)
+        if res.status_code == 200:
+            Video.status_code = 200
+            regex = re.compile(r"/item/(.*)\?")
+            video_id = regex.match(res.request.path_url).group(1)
+            info_url = "https://is.snssdk.com/bds/cell/detail/?cell_type=1&aid=1319&app_name=super&cell_id="
+            res_info = requests.get(url=info_url + video_id)
+            item_list = res_info.json()["data"]["data"]["item"]
+            play_addr = res_info.json()["data"]["data"]["item"][
+                "origin_video_download"
+            ]["url_list"][0]["url"]
+            Video.video_info["video"] = play_addr
+            Video.video_info["cover"] = item_list["cover"]["url_list"][0]["url"]
+            Video.video_info["desc"] = item_list["content"]
+            # TODO: 没找到音乐，待找
+            Video.video_info["music"]["title"] = ""
+            Video.video_info["music"]["author"] = ""
+            Video.video_info["music"]["cover_hd"] = ""
+            Video.video_info["music"]["play_url"] = item_list["music"]["play_url"][
+                "url_list"
+            ][0]
+            Video.video_info["music"]["duration"] = item_list["music"]["duration"]
+            Video.video_info["author"]["nickname"] = item_list["author"]["nickname"]
+            Video.video_info["author"]["signature"] = item_list["author"]["signature"]
+            Video.video_info["author"]["avatar_larger"] = item_list["author"][
+                "avatar_larger"
+            ]["url_list"][0]
+            Video.video_info["author"]["unique_id"] = item_list["author"]["unique_id"]
 
     def huo_shan(self, url):
         pass

@@ -1,4 +1,4 @@
-GET http://127.0.0.1:8000/v1/wx/login?code=061tuFFa1JlmMD0LCxIa1QKWOj1tuFFE
+GET http://127.0.0.1:8000/v1/wx/video-info?url=https://h5.pipix.com/s/6YdmHNj/#
 Accept: application/json
 
 ###
