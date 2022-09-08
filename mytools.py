@@ -133,25 +133,59 @@ class Video:
             Video.video_info["cover"] = item_list["cover"]["url_list"][0]["url"]
             Video.video_info["desc"] = item_list["content"]
             # TODO: 没找到音乐，待找
-            Video.video_info["music"]["title"] = ""
-            Video.video_info["music"]["author"] = ""
-            Video.video_info["music"]["cover_hd"] = ""
-            Video.video_info["music"]["play_url"] = item_list["music"]["play_url"][
+            Video.video_info["music"]["title"] = str
+            Video.video_info["music"]["author"] = str
+            Video.video_info["music"]["cover_hd"] = str
+            Video.video_info["music"]["play_url"] = str
+            Video.video_info["music"]["duration"] = int
+            Video.video_info["author"]["nickname"] = item_list["author"]["name"]
+            Video.video_info["author"]["signature"] = item_list["author"]["description"]
+            Video.video_info["author"]["avatar_larger"] = item_list["author"]["avatar"][
                 "url_list"
             ][0]
-            Video.video_info["music"]["duration"] = item_list["music"]["duration"]
-            Video.video_info["author"]["nickname"] = item_list["author"]["nickname"]
-            Video.video_info["author"]["signature"] = item_list["author"]["signature"]
-            Video.video_info["author"]["avatar_larger"] = item_list["author"][
-                "avatar_larger"
-            ]["url_list"][0]
-            Video.video_info["author"]["unique_id"] = item_list["author"]["unique_id"]
+            Video.video_info["author"]["unique_id"] = item_list["author"]["id_str"]
 
-    def huo_shan(self, url):
-        pass
+    def huo_shan(self):
+        res = requests.get(url=self.url)
+        if res.status_code == 200:
+            Video.status_code = 200
+            video_id = re.search(r"item_id=(.*)&tag=", res.request.path_url).group(1)
+            info_url = "https://share.huoshan.com/api/item/info?item_id="
+            res_info = requests.get(url=info_url + video_id)
+            item_list = res_info.json()["data"]
+            play_addr = item_list["item_info"]["url"]
+            Video.video_info["video"] = play_addr
+            Video.video_info["cover"] = item_list["item_info"]["cover"]
 
-    def wei_shi(self, url):
-        pass
+    def wei_shi(self):
+        if "h5.weishi" in self.url:
+            video_id = self.url
+        else:
+            video_id = re.search(r"&id=(.*)&spid=", self.url).group(1)
+        info_url = "https://h5.weishi.qq.com/webapp/json/weishi/WSH5GetPlayPage?feedid="
+        res_info = requests.get(url=info_url + video_id)
+        item_list = res_info.json()["data"]["feeds"][0]
+        play_addr = item_list["video_url"]
+        Video.video_info["video"] = play_addr
+        Video.video_info["cover"] = item_list["video_cover"]["static_cover"]["url"]
+        Video.video_info["desc"] = item_list["feed_desc"]
+        Video.video_info["music"]["title"] = item_list["music_info"]["songInfo"][
+            "strName"
+        ]
+        Video.video_info["music"]["author"] = str
+        Video.video_info["music"]["cover_hd"] = item_list["music_info"]["albumInfo"][
+            "strPic"
+        ]
+        Video.video_info["music"]["play_url"] = item_list["music_info"]["songInfo"][
+            "strPlayUrl"
+        ]
+        Video.video_info["music"]["duration"] = item_list["music_info"]["songInfo"][
+            "iPlayTime"
+        ]
+        Video.video_info["author"]["nickname"] = item_list["poster"]["nick"]
+        Video.video_info["author"]["signature"] = item_list["poster"]["status"]
+        Video.video_info["author"]["avatar_larger"] = item_list["poster"]["avatar"]
+        Video.video_info["author"]["unique_id"] = str
 
     def wei_bo(self, url):
         pass
