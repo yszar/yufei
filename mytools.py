@@ -8,6 +8,7 @@ import os
 import re
 
 import requests
+from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from redis import StrictRedis
 
@@ -187,8 +188,32 @@ class Video:
     def wei_bo(self, url):
         pass
 
-    def lv_zhou(self, url):
-        pass
+    def lv_zhou(self):
+        res = requests.get(url=self.url)
+        if res.status_code == 200:
+            Video.status_code = 200
+            soup = BeautifulSoup(res.text, "html.parser")
+            item_video = soup.select("body > div.oasis > div.media > div > video")
+            item_cover_tmp = soup.select(
+                "body > div.oasis > div.media > div > div.video-cover"
+            )
+            item_cover = re.search(r"\((.*)\)", item_cover_tmp[0].attrs["style"]).group(
+                1
+            )
+            item_desc = soup.select(
+                "body > div.oasis > div.content.btn-status > div.main-content > div.status-text"
+            )
+            item_nick = soup.select(
+                "body > div.oasis > div.content.btn-status > div.user > div"
+            )
+            item_avatar = soup.select(
+                "body > div.oasis > div.content.btn-status > div.user > a > img"
+            )
+            Video.video_info["video"] = item_video[0].attrs["src"]
+            Video.video_info["cover"] = item_cover
+            Video.video_info["desc"] = item_desc[0].contents[0].text
+            Video.video_info["author"]["nickname"] = item_nick[0].contents[0].text
+            Video.video_info["author"]["avatar_larger"] = item_avatar[0].attrs["src"]
 
     def zui_you(self, url):
         pass

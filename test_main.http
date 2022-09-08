@@ -1,4 +1,4 @@
-GET http://127.0.0.1:8000/v1/wx/video-info?url=https%3A//isee.weishi.qq.com/ws/app-pages/share/index.html%3Fwxplay%3D1%26id%3D6Zo3BXMgn1NzzsMC8%26spid%3D3599431994062053125%26qua%3Dv1_iph_weishi_8.79.0_209_app_a%26chid%3D100081014%26pkg%3D3670%26attach%3Dcp_reserves3_1000370011
+GET http://127.0.0.1:8000/v1/wx/video-info?url=https%3A%2F%2Fm.oasis.weibo.cn%2Fv1%2Fh5%2Fshare%3Fsid%3D4810415954200708
 Accept: application/json
 
 ###
