@@ -164,6 +164,10 @@ class Video:
             video_id = re.search(r"&id=(.*)&spid=", self.url).group(1)
         info_url = "https://h5.weishi.qq.com/webapp/json/weishi/WSH5GetPlayPage?feedid="
         res_info = requests.get(url=info_url + video_id)
+        if res_info.status_code == 200:
+            Video.status_code = 200
+        else:
+            Video.status_code = 400
         item_list = res_info.json()["data"]["feeds"][0]
         play_addr = item_list["video_url"]
         Video.video_info["video"] = play_addr
