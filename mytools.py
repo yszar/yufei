@@ -66,21 +66,21 @@ def check_session_id(request):
 class Video:
     status_code = int
     video_info = {
-        "video": str,
-        "cover": str,
-        "desc": str,
+        "video": "",
+        "cover": "",
+        "desc": "",
         "music": {
-            "title": str,
-            "author": str,
-            "cover_hd": str,
-            "play_url": str,
-            "duration": int,
+            "title": "",
+            "author": "",
+            "cover_hd": "",
+            "play_url": "",
+            "duration": "",
         },
         "author": {
-            "nickname": str,
-            "signature": str,
-            "avatar_larger": str,
-            "unique_id": str,
+            "nickname": "",
+            "signature": "",
+            "avatar_larger": "",
+            "unique_id": "",
         },
     }
 
@@ -133,11 +133,6 @@ class Video:
             Video.video_info["cover"] = item_list["cover"]["url_list"][0]["url"]
             Video.video_info["desc"] = item_list["content"]
             # TODO: 没找到音乐，待找
-            Video.video_info["music"]["title"] = str
-            Video.video_info["music"]["author"] = str
-            Video.video_info["music"]["cover_hd"] = str
-            Video.video_info["music"]["play_url"] = str
-            Video.video_info["music"]["duration"] = int
             Video.video_info["author"]["nickname"] = item_list["author"]["name"]
             Video.video_info["author"]["signature"] = item_list["author"]["description"]
             Video.video_info["author"]["avatar_larger"] = item_list["author"]["avatar"][
@@ -176,7 +171,6 @@ class Video:
         Video.video_info["music"]["title"] = item_list["music_info"]["songInfo"][
             "strName"
         ]
-        Video.video_info["music"]["author"] = str
         Video.video_info["music"]["cover_hd"] = item_list["music_info"]["albumInfo"][
             "strPic"
         ]
@@ -189,7 +183,6 @@ class Video:
         Video.video_info["author"]["nickname"] = item_list["poster"]["nick"]
         Video.video_info["author"]["signature"] = item_list["poster"]["status"]
         Video.video_info["author"]["avatar_larger"] = item_list["poster"]["avatar"]
-        Video.video_info["author"]["unique_id"] = str
 
     def wei_bo(self, url):
         pass
