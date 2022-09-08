@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/yszar/yufei/compare/v1.1.1...v1.1.2) (2022-09-08)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* 修复返回值类型错误 ([a64eaaa](https://github.com/yszar/yufei/commit/a64eaaad7416088ed0c8d7a1ecc4d4829ca252ee))
+
 ### [1.1.1](https://github.com/yszar/yufei/compare/v1.1.0...v1.1.1) (2022-09-08)
 
 
