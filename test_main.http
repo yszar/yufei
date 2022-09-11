@@ -1,4 +1,4 @@
-GET http://127.0.0.1:8000/v1/wx/video-info?url=https%3A%2F%2Fvideo.weibo.com%2Fshow%3Ffid%3D1034%3A4808962013593712
+GET http://127.0.0.1:8000/v1/wx/video-info?url=https://video.weibo.com/show?fid=1034:4808962013593712
 Accept: application/json
 
 ###

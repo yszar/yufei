@@ -191,14 +191,23 @@ class Video:
         else:
             video_id = re.search(r"(\d+):\d+", self.url).group(1)
         res_info = weibo_request(video_id)
-        if res_info.status_code == 200:
-            Video.status_code = 200
-            item_list = res_info.json()["data"]["Component_Play_Playinfo"]
-            key_one = list(item_list["urls"].keys())[0]
-            play_addr = item_list["urls"][key_one]
-            Video.video_info["video"] = play_addr
-            Video.video_info["cover"] = item_list["cover_image"]
-            Video.video_info["desc"] = item_list["text"]
+        try:
+            if res_info.status_code == 200:
+                Video.status_code = 200
+                item_list = res_info.json()["data"]["Component_Play_Playinfo"]
+                key_one = list(item_list["urls"].keys())[0]
+                play_addr = item_list["urls"][key_one]
+                Video.video_info["video"] = play_addr
+                Video.video_info["cover"] = item_list["cover_image"]
+                Video.video_info["desc"] = item_list["text"]
+        except TypeError:
+            print(
+                f"""
+            ==========weibo TypeError Begin===========
+            传入url: {self.url}
+            返回json: {res_info}
+            """
+            )
 
     def lv_zhou(self):
         res = requests.get(url=self.url)
