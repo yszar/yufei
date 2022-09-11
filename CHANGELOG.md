@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/yszar/yufei/compare/v1.4.0...v1.5.0) (2022-09-11)
+
+
+### ✨ Features | 新功能
+
+* **main.py mytools.py:** 新增支持度小视 ([e9d19bb](https://github.com/yszar/yufei/commit/e9d19bb1216b2bd8f6c09e80fbca4aef32cc12b9))
+
 ## [1.4.0](https://github.com/yszar/yufei/compare/v1.3.1...v1.4.0) (2022-09-11)
 
 
