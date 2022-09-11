@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/yszar/yufei/compare/v1.3.0...v1.3.1) (2022-09-11)
+
+
+### ✅ Tests | 测试
+
+* 增加调试内容 ([3959ea7](https://github.com/yszar/yufei/commit/3959ea78f7e9b6d1f757cbace42e3ead1cfd5ed5))
+
 ## [1.3.0](https://github.com/yszar/yufei/compare/v1.2.0...v1.3.0) (2022-09-11)
 
 
