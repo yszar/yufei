@@ -1,4 +1,4 @@
-GET http://127.0.0.1:8000/v1/wx/video-info?url=https://video.weibo.com/show?fid=1034:4808962013593712
+GET http://127.0.0.1:8000/v1/wx/video-info?url=https%3A%2F%2Fstatic-play.kg.qq.com%2Fnode%2Fn531pe2buU%2Fplay_v2%3Fs%3Dp0W_APUpVrwZqUJN%26shareuid%3D609998852628318d30%26topsource%3Da0_pn201001006_z1_u245035664_l1_t1662924932__%26chain_share_id%3D3VCtgmq1YZv0noBpIt89krUa37JL4Kkfw4iEqdtLxQs%26pageId%3Dfeed
 Accept: application/json
 
 ###

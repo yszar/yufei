@@ -127,6 +127,14 @@ async def get_video_info(url: str, request: Request):
             v.wei_bo()
         case url if "oasis.weibo" in url:
             v.lv_zhou()
+        case url if "oasis.weibo" in url:
+            v.lv_zhou()
+        case url if "xiaochuankeji" in url:
+            v.zui_you()
+        case url if "kuaishou" in url:
+            v.kuai_shou()
+        case url if "kg.qq" in url:
+            v.quan_min_kge()
         # 挨着写，还有无数个
     if Video.status_code == 200:
         var = Video.video_info

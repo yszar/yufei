@@ -236,14 +236,36 @@ class Video:
             Video.video_info["author"]["nickname"] = item_nick[0].contents[0].text
             Video.video_info["author"]["avatar_larger"] = item_avatar[0].attrs["src"]
 
-    def zui_you(self, url):
-        pass
+    def zui_you(self):
+        res_info = my_request(url=self.url)
+        if res_info.status_code == 200:
+            Video.status_code = 200
+            Video.video_info["video"] = re.search(
+                r"urlsrc\": \"(.*)\"", res_info.text
+            ).group(1)
+            Video.video_info["cover"] = ""
+            Video.video_info["desc"] = ""
+            Video.video_info["music"]["title"] = ""
+            Video.video_info["music"]["author"] = ""
+            Video.video_info["music"]["cover_hd"] = ""
+            Video.video_info["music"]["play_url"] = ""
+            Video.video_info["music"]["duration"] = ""
+            Video.video_info["author"]["nickname"] = ""
+            Video.video_info["author"]["signature"] = ""
+            Video.video_info["author"]["avatar_larger"] = ""
+            Video.video_info["author"]["unique_id"] = ""
 
     def bilibili(self, url):
         pass
 
-    def kuai_shou(self, url):
-        pass
+    def kuai_shou(self):
+        r = my_request(url=self.url)
+        cookies = dict(r.headers)["Set-Cookie"]
+        headers = {
+            "Referer": r.request.url,
+            "User-Agent": dict(r.request.headers)["User-Agent"],
+        }
+        headers = 1
 
     def quan_min(self, url):
         pass
@@ -269,8 +291,21 @@ class Video:
     def pi_pi_gao_xiao(self, url):
         pass
 
-    def quan_min_kge(self, url):
-        pass
+    def quan_min_kge(self):
+        sid = re.search(r"play_v2\?s=(.*)&shareuid", self.url).group(1)
+        url = f"https://kg.qq.com/node/play?s={sid}"
+        res_info = requests.get(url=url).text
+        if res_info:
+            Video.status_code = 200
+            Video.video_info["video"] = re.search(
+                r"playurl_video\":\"(.*?)\"", res_info
+            ).group(1)
+            Video.video_info["cover"] = re.search(r"cover\":\"(.*?)\"", res_info).group(
+                1
+            )
+            Video.video_info["desc"] = re.search(
+                r'<p class="singer_say__cut">(.*)</p>', res_info
+            ).group(1)
 
     def xi_gua(self, url):
         pass
@@ -298,6 +333,16 @@ class Video:
 
     def set_info(self):
         pass
+
+
+def my_request(url, headers=""):
+    header = {
+        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1"
+    }
+    if headers:
+        header = headers
+    res = requests.get(url=url, headers=header)
+    return res
 
 
 def weibo_request(video_id: str):
