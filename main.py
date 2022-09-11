@@ -133,6 +133,8 @@ async def get_video_info(url: str, request: Request):
             v.zui_you()
         case url if "kuaishou" in url:
             v.kuai_shou()
+        case url if "baidu" in url:
+            v.quan_min()
         case url if "kg.qq" in url:
             v.quan_min_kge()
         # 挨着写，还有无数个

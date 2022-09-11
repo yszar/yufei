@@ -267,8 +267,21 @@ class Video:
         }
         headers = 1
 
-    def quan_min(self, url):
-        pass
+    def quan_min(self):
+        if "quanmin.baidu.com/v/" in self.url:
+            vid = re.search(r"v/(.*?)\?", self.url).group(1)
+        else:
+            vid = re.search(r"vid=(.*)&shareTime", self.url).group(1)
+        url = f"https://quanmin.hao222.com/wise/growth/api/sv/immerse?source=share-h5&pd=qm_share_mvideo&vid={vid}&_format=json"
+        res_info = my_request(url=url)
+        if res_info.status_code == 200:
+            Video.status_code = 200
+            item_list = res_info.json()["data"]
+            Video.video_info["video"] = item_list["meta"]["video_info"]["clarityUrl"][
+                2
+            ]["url"]
+            Video.video_info["cover"] = item_list["meta"]["image"]
+            Video.video_info["desc"] = item_list["meta"]["title"]
 
     def movie_base(self, url):
         pass
