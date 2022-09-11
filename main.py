@@ -123,6 +123,8 @@ async def get_video_info(url: str, request: Request):
             v.huo_shan()
         case url if "weishi" in url:
             v.wei_shi()
+        case url if "video.weibo" in url:
+            v.wei_bo()
         case url if "oasis.weibo" in url:
             v.lv_zhou()
         # 挨着写，还有无数个

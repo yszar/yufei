@@ -185,8 +185,20 @@ class Video:
         Video.video_info["author"]["signature"] = item_list["poster"]["status"]
         Video.video_info["author"]["avatar_larger"] = item_list["poster"]["avatar"]
 
-    def wei_bo(self, url):
-        pass
+    def wei_bo(self):
+        if "show?fid=" in self.url:
+            video_id = re.search(r"fid=(.*)", self.url).group(1)
+        else:
+            video_id = re.search(r"(\d+):\d+", self.url).group(1)
+        res_info = weibo_request(video_id)
+        if res_info.status_code == 200:
+            Video.status_code = 200
+            item_list = res_info.json()["data"]["Component_Play_Playinfo"]
+            key_one = list(item_list["urls"].keys())[0]
+            play_addr = item_list["urls"][key_one]
+            Video.video_info["video"] = play_addr
+            Video.video_info["cover"] = item_list["cover_image"]
+            Video.video_info["desc"] = item_list["text"]
 
     def lv_zhou(self):
         res = requests.get(url=self.url)
@@ -277,6 +289,36 @@ class Video:
 
     def set_info(self):
         pass
+
+
+def weibo_request(video_id: str):
+    cookie = {
+        "login_sid_t": "6b652c77c1a4bc50cb9d06b24923210d",
+        "cross_origin_proto": "SSL",
+        "WBStorage": "2ceabba76d81138d|undefined",
+        "_s_tentry": "passport.weibo.com",
+        "Apache": "7330066378690.048.1625663522444",
+        "SINAGLOBAL": "7330066378690.048.1625663522444",
+        "ULV": "1625663522450:1:1:1:7330066378690.048.1625663522444:",
+        "TC-V-WEIBO-G0": "35846f552801987f8c1e8f7cec0e2230",
+        "SUB": "_2AkMXuScYf8NxqwJRmf8RzmnhaoxwzwDEieKh5dbDJRMxHRl"
+        "-yT9jqhALtRB6PDkJ9w8OaqJAbsgjdEWtIcilcZxHG7rw",
+        "SUBP": "0033WrSXqPxfM72-Ws9jqgMF55529P9D9W5Qx3Mf.RCfFAKC3smW0px0",
+        "XSRF-TOKEN": "JQSK02Ijtm4Fri-YIRu0-vNj",
+    }
+    post_data = {"data": f'{{"Component_Play_Playinfo":{{"oid":"{video_id}"}}}}'}
+    header = {
+        "referer": f"https://weibo.com/tv/show/{video_id}",
+        "Accept-Encoding": "gzip, deflate",
+        "Content-Type": "application/x-www-form-urlencoded",
+    }
+    res = requests.post(
+        url=f"https://weibo.com/tv/api/component?page=/tv/show/{video_id}",
+        data=post_data,
+        cookies=cookie,
+        headers=header,
+    )
+    return res
 
 
 if __name__ == "__main__":
