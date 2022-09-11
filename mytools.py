@@ -197,7 +197,7 @@ class Video:
                 item_list = res_info.json()["data"]["Component_Play_Playinfo"]
                 key_one = list(item_list["urls"].keys())[0]
                 play_addr = item_list["urls"][key_one]
-                Video.video_info["video"] = play_addr
+                Video.video_info["video"] = f"https:{play_addr}"
                 Video.video_info["cover"] = item_list["cover_image"]
                 Video.video_info["desc"] = item_list["text"]
         except TypeError:
