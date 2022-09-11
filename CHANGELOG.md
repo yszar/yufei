@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/yszar/yufei/compare/v1.3.1...v1.4.0) (2022-09-11)
+
+
+### ✨ Features | 新功能
+
+* 新增支持全民K歌 ([204e83e](https://github.com/yszar/yufei/commit/204e83edf42c1cf433778684d83bb0bb930b61b8))
+
 ### [1.3.1](https://github.com/yszar/yufei/compare/v1.3.0...v1.3.1) (2022-09-11)
 
 
