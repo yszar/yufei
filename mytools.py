@@ -70,6 +70,7 @@ class Video:
         "video": "",
         "cover": "",
         "desc": "",
+        "app_name": "",
         "music": {
             "title": "",
             "author": "",
@@ -99,6 +100,7 @@ class Video:
             item_list = res_info.json()["item_list"][0]
             play_addr = item_list["video"]["play_addr"]["url_list"][0]
             play_addr = play_addr.replace("playwm", "play")
+            Video.video_info["app_name"] = "抖音"
             Video.video_info["video"] = play_addr
             Video.video_info["cover"] = item_list["video"]["cover"]["url_list"]
             Video.video_info["desc"] = item_list["desc"]
@@ -130,6 +132,7 @@ class Video:
             play_addr = res_info.json()["data"]["data"]["item"][
                 "origin_video_download"
             ]["url_list"][0]["url"]
+            Video.video_info["app_name"] = "皮皮虾"
             Video.video_info["video"] = play_addr
             Video.video_info["cover"] = item_list["cover"]["url_list"][0]["url"]
             Video.video_info["desc"] = item_list["content"]
@@ -150,6 +153,7 @@ class Video:
             res_info = requests.get(url=info_url + video_id)
             item_list = res_info.json()["data"]
             play_addr = item_list["item_info"]["url"]
+            Video.video_info["app_name"] = "火山"
             Video.video_info["video"] = play_addr
             Video.video_info["cover"] = item_list["item_info"]["cover"]
 
@@ -166,6 +170,7 @@ class Video:
             Video.status_code = 400
         item_list = res_info.json()["data"]["feeds"][0]
         play_addr = item_list["video_url"]
+        Video.video_info["app_name"] = "微视"
         Video.video_info["video"] = play_addr
         Video.video_info["cover"] = item_list["video_cover"]["static_cover"]["url"]
         Video.video_info["desc"] = item_list["feed_desc"]
@@ -197,6 +202,7 @@ class Video:
                 item_list = res_info.json()["data"]["Component_Play_Playinfo"]
                 key_one = list(item_list["urls"].keys())[0]
                 play_addr = item_list["urls"][key_one]
+                Video.video_info["app_name"] = "微博"
                 Video.video_info["video"] = f"https:{play_addr}"
                 Video.video_info["cover"] = item_list["cover_image"]
                 Video.video_info["desc"] = item_list["text"]
@@ -230,6 +236,7 @@ class Video:
             item_avatar = soup.select(
                 "body > div.oasis > div.content.btn-status > div.user > a > img"
             )
+            Video.video_info["app_name"] = "绿洲"
             Video.video_info["video"] = item_video[0].attrs["src"]
             Video.video_info["cover"] = item_cover
             Video.video_info["desc"] = item_desc[0].contents[0].text
@@ -277,6 +284,7 @@ class Video:
         if res_info.status_code == 200:
             Video.status_code = 200
             item_list = res_info.json()["data"]
+            Video.video_info["app_name"] = "度小视"
             Video.video_info["video"] = item_list["meta"]["video_info"]["clarityUrl"][
                 2
             ]["url"]
@@ -310,6 +318,7 @@ class Video:
         res_info = requests.get(url=url).text
         if res_info:
             Video.status_code = 200
+            Video.video_info["app_name"] = "全民K歌"
             Video.video_info["video"] = re.search(
                 r"playurl_video\":\"(.*?)\"", res_info
             ).group(1)

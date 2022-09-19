@@ -1,4 +1,4 @@
-GET http://127.0.0.1:8000/v1/wx/video-info?url=https%3A%2F%2Fxspshare.baidu.com%2Fcb9eab870311ae1be42b3b80676b6b0a%3Fsource%3Dshare-h5%26pd%3Dqm_share_mvideo%26vid%3D4417832610476681088%26shareTime%3D1662928565%26shareid%3D2165678156%26shared_cuid%3D_u23igicSulGuSut_i21a_uh2ugUa-ui_i2BagaFv8l-aviX0aHn8gteQOlIiQuc9yHmA%26shared_uid%3DAl-uB
+GET http://127.0.0.1:8000/v1/wx/video-info?url=https%3A%2F%2Fshare.xiaochuankeji.cn%2Fhybrid%2Fshare%2Fpost%3Fpid%3D250588154%26zy_to%3Dapplink%26share_count%3D1%26m%3D59e1dddffbae2b26f0f0bf910b7c95f5%26d%3D1ed67ea79e1596aacc372f8265b0f6b8592d763ba073106660752b981801bd56a021b70060f0bf23234d4c8bf2eec216%26app%3Dzuiyou%26recommend%3Dr0%26name%3Dn0%26title_type%3Dt0
 Accept: application/json
 
 ###
